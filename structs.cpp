@@ -21,13 +21,6 @@ struct Student {
     std::vector<Grade> grades;
 };
 
-// КУРС
-struct Course {
-    std::string courseName;
-    std::string startDate;
-    std::string endDate;
-    std::string instructor;
-};
 
 // ПРОЕКТ
 struct Project {
@@ -35,7 +28,7 @@ struct Project {
     std::string description;
     std::string startDate;
     std::string endDate;
-    std::vector<Student> teamMembers; // Вектор студентов, участвующих в проекте
+    std::vector<Student> teamMembers; // Массив студентов, участвующих в проекте
 };
 
 // EVENT
@@ -46,4 +39,11 @@ struct Event {
     std::vector<Student> eventMembers;
 };
 
-
+// КУРС
+struct Course {
+    std::string courseName;
+    std::string startDate;
+    std::string endDate;
+    std::string instructor;
+    std::vector<Event> events;
+};

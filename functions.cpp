@@ -3,6 +3,8 @@
 #include <vector>
 #include <numeric>
 
+
+
 // ОЦЕНКА
 // Вывод в консоль
 void printGrade(const std::vector<Grade>& grades) {
@@ -25,6 +27,25 @@ Grade initializeGrade(
     grade.date = date;
 
     return grade;
+}
+
+// поиск оценки по предмету
+void printGradeBySubject(const std::vector<Grade>& grades, const std::string& subject) {
+    bool found = false;
+
+    for (const Grade& grade : grades) {
+        if (grade.subject == subject) {
+            std::cout << "Оценка по предмету \"" << subject << "\":" << std::endl;
+            std::cout << "Оценка: " << grade.score << std::endl;
+            std::cout << "Дата: " << grade.date << std::endl;
+            found = true;
+            break;
+        }
+    }
+
+    if (!found) {
+        std::cout << "Оценка по предмету \"" << subject << "\" не найдена." << std::endl;
+    }
 }
 
 void initializeGrades(Student& student, const std::vector<Grade>& initialGrades) {
@@ -88,21 +109,32 @@ void printCourse(Course course) {
     std::cout << "Дата начала: " << course.startDate << std::endl;
     std::cout << "Дата окончания: " << course.endDate << std::endl;
     std::cout << "Предподаватель: " << course.instructor << std::endl;
+
+    std::cout << "Мероприятия: " << std::endl;
+    for (const Event event : course.events) {
+        std::cout << "Название: " << event.eventName << std::endl;
+    }
 }
 
 Course initializeCourse(
         const std::string& courseName,
         const std::string& startDate,
         const std::string& endDate,
-        const std::string& instructor
+        const std::string& instructor,
+        const std::vector<Event>& events
 ) {
     Course course;
     course.courseName = courseName;
     course.startDate = startDate;
     course.endDate = endDate;
     course.instructor = instructor;
+    course.events = events;
 
     return course;
+}
+
+void addEventToCourse(Course& course, const Event& event) {
+    course.events.push_back(event);
 }
 
 // ПРОЕКТ
@@ -136,6 +168,11 @@ Project initializeProject(
     return project;
 }
 
+// добавление студента в проект
+void addTeamMember(Project& project, const Student& student) {
+    project.teamMembers.push_back(student);
+}
+
 // EVENT
 // Вывод в консоль
 void printEvent(Event event) {
@@ -146,7 +183,6 @@ void printEvent(Event event) {
     std::cout << "\nУчастники:" << std::endl;
     for (const Student student : event.eventMembers) {
         std::cout << "Имя: " << student.firstName << " " << student.lastName << std::endl;
-        std::cout << std::endl; // Пустая строка для разделения оценок
     }
 }
 
@@ -162,6 +198,11 @@ Event initializeEvent(
     event.eventMembers = eventMembers;
 
     return event;
+}
+
+// Функция для добавления участника в мероприятие
+void addParticipantToEvent(Event& event, const Student& student) {
+    event.eventMembers.push_back(student);
 }
 
 
@@ -187,6 +228,14 @@ int main() {
             "ivan@example.com",
             studentGrades
     );
+    Student student3 = initializeStudent(
+            "Добрыня",
+            "НикитичЪ",
+            "01.01.2000",
+            "12345",
+            "ivan@example.com",
+            studentGrades
+    );
     Project project = initializeProject(
             "name",
             "description",
@@ -200,12 +249,6 @@ int main() {
 //    project.endDate = "1";
 //    project.teamMembers.push_back(student);
 
-    Course course = initializeCourse(
-            "Программирование",
-            "01.01.2001",
-            "10.10.2001",
-            "Троицкий"
-            );
 
     Event event = initializeEvent(
                     "Конференция",
@@ -213,14 +256,30 @@ int main() {
                     "Конференц-зал",
                     {student, student2});
 
+    Event event2 = initializeEvent(
+            "День открытых дверей",
+            "20.11.2023",
+            "Конференц-зал",
+            {student, student2});
+
+    Course course = initializeCourse(
+            "Программирование",
+            "01.01.2001",
+            "10.10.2001",
+            "Троицкий",
+            {event}
+    );
+
     std::cout << "Вызов printGrade\n" << std::endl;
     printGrade(studentGrades);
+    std::cout << std::endl;
+    std::cout << "Вызов printGradeBySubject\n" << std::endl;
+    printGradeBySubject(studentGrades, "Физика");
     std::cout << std::endl;
 
     std::cout << "Вызов printStudent\n" << std::endl;
     printStudent(student);
     std::cout << std::endl;
-
     double gpa = avgGrade(student);
     std::cout << "Средний балл студента: " << gpa << std::endl;
     std::cout << std::endl;
@@ -228,8 +287,16 @@ int main() {
     std::cout << "Вызов printProject\n" << std::endl;
     printProject(project);
     std::cout << std::endl;
+    addTeamMember(project, student3);
+    std::cout << "Вызов printProject после добавления 3 студента\n" << std::endl;
+    printProject(project);
+    std::cout << std::endl;
 
     std::cout << "Вызов printCourse\n" << std::endl;
+    printCourse(course);
+    std::cout << std::endl;
+    addEventToCourse(course, event2);
+    std::cout << "Вызов printCourse с новым event\n" << std::endl;
     printCourse(course);
     std::cout << std::endl;
 
