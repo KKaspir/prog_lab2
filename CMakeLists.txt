@@ -1,8 +1,9 @@
 cmake_minimum_required(VERSION 3.26)
-project(untitled1)
+project(untitled4)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(untitled1 main.cpp
-        structs.cpp
-        functions.cpp)
+add_executable(untitled4 main.cpp
+        classes.cpp
+        functions.cpp
+        structs.cpp)

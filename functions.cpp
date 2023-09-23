@@ -187,10 +187,10 @@ void printEvent(Event event) {
 }
 
 Event initializeEvent(
-                    const std::string& eventName,
-                    const std::string& date,
-                    const std::string& location,
-                    const std::vector<Student>& eventMembers) {
+        const std::string& eventName,
+        const std::string& date,
+        const std::string& location,
+        const std::vector<Student>& eventMembers) {
     Event event;
     event.eventName = eventName;
     event.date = date;
@@ -242,7 +242,7 @@ int main() {
             "1",
             " 1",
             {student, student2}
-            );
+    );
 //    project.projectName = "name";
 //    project.description = "description";
 //    project.startDate = "1";
@@ -251,10 +251,10 @@ int main() {
 
 
     Event event = initializeEvent(
-                    "Конференция",
-                    "20.10.2023",
-                    "Конференц-зал",
-                    {student, student2});
+            "Конференция",
+            "20.10.2023",
+            "Конференц-зал",
+            {student, student2});
 
     Event event2 = initializeEvent(
             "День открытых дверей",
@@ -304,15 +304,3 @@ int main() {
     printEvent(event);
     std::cout << std::endl;
 }
-
-
-
-
-
-
-
-
-
-
-
-

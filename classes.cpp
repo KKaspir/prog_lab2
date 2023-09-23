@@ -157,3 +157,61 @@ public:
         }
     }
 };
+
+
+int main1() {
+    Grade few("Математика", 5.0, "20.09.2023");
+
+    std::vector<Grade> studentGrades = {
+            Grade("Математика", 5.0, "20.09.2023"),
+            Grade("Физика", 4.5, "20.09.2023")
+    };
+
+
+
+    Student student("Иван", "Иванов", "01.01.2000", "12345", "ivan@example.com", studentGrades);
+
+    Project project("name", "description", "1", "1", {student});
+    Student student3("Третий", "Студент", "03.03.2003", "33333", "student3@example.com", {});
+    project.addTeamMember(student3);
+
+    Course course("Программирование", "01.01.2001", "10.10.2001", "Троицкий", {});
+    Event event("Конференция", "20.10.2023", "Конференц-зал", {student});
+    course.addEvent(event);
+    Event event2("Семинар", "25.10.2023", "Аудитория 101", {student3});
+    course.addEvent(event2);
+
+
+    std::cout << "Вызов printStudent\n" << std::endl;
+    student.print();
+    std::cout << std::endl;
+
+    double gpa = student.avgGrade();
+    std::cout << "Средний балл студента: " << gpa << std::endl;
+    std::cout << std::endl;
+
+    std::cout << "Вызов printProject\n" << std::endl;
+    project.print();
+    std::cout << std::endl;
+
+    std::cout << "Вызов printProject после добавления 3 студента\n" << std::endl;
+    project.addTeamMember(student3);
+    project.print();
+    std::cout << std::endl;
+
+    std::cout << "Вызов printCourse\n" << std::endl;
+    course.print();
+    std::cout << std::endl;
+
+    std::cout << "Вызов printCourse с новым event\n" << std::endl;
+    course.addEvent(event2);
+    course.print();
+    std::cout << std::endl;
+
+    std::cout << "Вызов printEvent\n" << std::endl;
+    event.print();
+    std::cout << std::endl;
+
+    return 0;
+};
+
