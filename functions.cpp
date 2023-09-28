@@ -52,6 +52,17 @@ void initializeGrades(Student& student, const std::vector<Grade>& initialGrades)
     student.grades = initialGrades;
 }
 
+Grade inputGradeFromConsole() {
+    Grade grade;
+    std::cout << "Введите предмет: ";
+    std::cin >> grade.subject;
+    std::cout << "Введите оценку: ";
+    std::cin >> grade.score;
+    std::cout << "Введите дату: ";
+    std::cin >> grade.date;
+    return grade;
+}
+
 // СТУДЕНТ
 // Рассчет средней оценки
 double avgGrade(Student structure) {
@@ -102,6 +113,88 @@ void printStudent(Student student) {
     }
 }
 
+Student inputStudentFromConsole() {
+    Student student;
+    std::cout << "Введите имя: ";
+    std::cin >> student.firstName;
+    std::cout << "Введите фамилию: ";
+    std::cin >> student.lastName;
+    std::cout << "Введите дату рождения: ";
+    std::cin >> student.dateOfBirth;
+    std::cout << "Введите номер студенческого билета: ";
+    std::cin >> student.studentID;
+    std::cout << "Введите email: ";
+    std::cin >> student.email;
+
+    // Считываем оценки
+    int numGrades;
+    std::cout << "Введите количество оценок: ";
+    std::cin >> numGrades;
+    student.grades.clear(); // Очищаем существующие оценки
+    for (int i = 0; i < numGrades; ++i) {
+        std::cout << "Введите данные для оценки #" << i + 1 << ":" << std::endl;
+        Grade grade = inputGradeFromConsole();
+        student.grades.push_back(grade);
+    }
+
+    return student;
+}
+
+// EVENT
+// Вывод в консоль
+void printEvent(Event event) {
+    std::cout << "Название мероприятия: " << event.eventName << std::endl;
+    std::cout << "Дата: " << event.date << std::endl;
+    std::cout << "Место проведения: " << event.location << std::endl;
+
+    std::cout << "\nУчастники:" << std::endl;
+    for (const Student student : event.eventMembers) {
+        std::cout << "Имя: " << student.firstName << " " << student.lastName << std::endl;
+    }
+}
+
+Event initializeEvent(
+        const std::string& eventName,
+        const std::string& date,
+        const std::string& location,
+        const std::vector<Student>& eventMembers) {
+    Event event;
+    event.eventName = eventName;
+    event.date = date;
+    event.location = location;
+    event.eventMembers = eventMembers;
+
+    return event;
+}
+
+// Функция для добавления участника в мероприятие
+void addParticipantToEvent(Event& event, const Student& student) {
+    event.eventMembers.push_back(student);
+}
+
+Event inputEventFromConsole() {
+    Event event;
+    std::cout << "Введите название мероприятия: ";
+    std::cin >> event.eventName;
+    std::cout << "Введите дату: ";
+    std::cin >> event.date;
+    std::cout << "Введите место проведения: ";
+    std::cin >> event.location;
+
+    // Считываем участников мероприятия
+    int numEventMembers;
+    std::cout << "Введите количество участников мероприятия: ";
+    std::cin >> numEventMembers;
+    event.eventMembers.clear(); // Очищаем существующих участников
+    for (int i = 0; i < numEventMembers; ++i) {
+        std::cout << "Введите данные для участника #" << i + 1 << ":" << std::endl;
+        Student student = inputStudentFromConsole();
+        event.eventMembers.push_back(student);
+    }
+
+    return event;
+}
+
 // КУРС
 // Вывод в консоль
 void printCourse(Course course) {
@@ -136,6 +229,33 @@ Course initializeCourse(
 void addEventToCourse(Course& course, const Event& event) {
     course.events.push_back(event);
 }
+
+Course inputCourseFromConsole() {
+    Course course;
+    std::cout << "Введите название курса: ";
+    std::cin >> course.courseName;
+    std::cout << "Введите дату начала: ";
+    std::cin >> course.startDate;
+    std::cout << "Введите дату окончания: ";
+    std::cin >> course.endDate;
+    std::cout << "Введите имя преподавателя: ";
+    std::cin >> course.instructor;
+
+    // Считываем мероприятия
+    int numEvents;
+    std::cout << "Введите количество мероприятий: ";
+    std::cin >> numEvents;
+    course.events.clear(); // Очищаем существующие мероприятия
+    for (int i = 0; i < numEvents; ++i) {
+        std::cout << "Введите данные для мероприятия #" << i + 1 << ":" << std::endl;
+        Event event = inputEventFromConsole();
+        course.events.push_back(event);
+    }
+
+    return course;
+}
+
+
 
 // ПРОЕКТ
 // Вывод в консоль
@@ -173,44 +293,44 @@ void addTeamMember(Project& project, const Student& student) {
     project.teamMembers.push_back(student);
 }
 
-// EVENT
-// Вывод в консоль
-void printEvent(Event event) {
-    std::cout << "Название мероприятия: " << event.eventName << std::endl;
-    std::cout << "Дата: " << event.date << std::endl;
-    std::cout << "Место проведения: " << event.location << std::endl;
+Project inputProjectFromConsole() {
+    Project project;
+    std::cout << "Введите название проекта: ";
+    std::cin >> project.projectName;
+    std::cout << "Введите описание: ";
+    std::cin >> project.description;
+    std::cout << "Введите дату начала: ";
+    std::cin >> project.startDate;
+    std::cout << "Введите дату окончания: ";
+    std::cin >> project.endDate;
 
-    std::cout << "\nУчастники:" << std::endl;
-    for (const Student student : event.eventMembers) {
-        std::cout << "Имя: " << student.firstName << " " << student.lastName << std::endl;
+    // Считываем участников проекта
+    int numTeamMembers;
+    std::cout << "Введите количество участников проекта: ";
+    std::cin >> numTeamMembers;
+    project.teamMembers.clear(); // Очищаем существующих участников
+    for (int i = 0; i < numTeamMembers; ++i) {
+        std::cout << "Введите данные для участника #" << i + 1 << ":" << std::endl;
+        Student student = inputStudentFromConsole();
+        project.teamMembers.push_back(student);
     }
-}
 
-Event initializeEvent(
-        const std::string& eventName,
-        const std::string& date,
-        const std::string& location,
-        const std::vector<Student>& eventMembers) {
-    Event event;
-    event.eventName = eventName;
-    event.date = date;
-    event.location = location;
-    event.eventMembers = eventMembers;
-
-    return event;
-}
-
-// Функция для добавления участника в мероприятие
-void addParticipantToEvent(Event& event, const Student& student) {
-    event.eventMembers.push_back(student);
+    return project;
 }
 
 
-int main() {
+
+
+
+int main1() {
     // Создаем студента и добавляем ему оценки
     std::vector<Grade> studentGrades = {
             {"Математика", 5.0, "20.09.2023"},
             {"Физика",     4.5, "20.09.2023"}
+    };
+    std::vector<Grade> studentGrades2 = {
+            {"История", 4.0, "22.09.2023"},
+            {"Литература", 4.5, "22.09.2023"}
     };
     Student student = initializeStudent(
             "Иван",
@@ -236,6 +356,15 @@ int main() {
             "ivan@example.com",
             studentGrades
     );
+    Student* dynamicStudent = new Student;
+    *dynamicStudent = initializeStudent(
+            "Коля",
+            "Динамический",
+            "02.02.2001",
+            "67890",
+            "dynamic@example.com",
+            studentGrades2
+    );
     Project project = initializeProject(
             "name",
             "description",
@@ -243,12 +372,6 @@ int main() {
             " 1",
             {student, student2}
     );
-//    project.projectName = "name";
-//    project.description = "description";
-//    project.startDate = "1";
-//    project.endDate = "1";
-//    project.teamMembers.push_back(student);
-
 
     Event event = initializeEvent(
             "Конференция",
@@ -303,4 +426,17 @@ int main() {
     std::cout << "Вызов printEvent\n" << std::endl;
     printEvent(event);
     std::cout << std::endl;
+
+    std::cout << "\nИнформация о динамическом Student:" << std::endl;
+    printStudent(*dynamicStudent);
+    std::cout << std::endl;
+
+    gpa = avgGrade(*dynamicStudent);
+    std::cout << "Средний балл динамического студента: " << gpa << std::endl;
+    std::cout << std::endl;
+
+    Event i_got_100_for_my_lab = inputEventFromConsole();
+    std::cout << "Данные о мероприятии:" << std::endl;
+    printEvent(i_got_100_for_my_lab);
+
 }

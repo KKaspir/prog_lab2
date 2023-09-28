@@ -16,6 +16,21 @@ public:
         std::cout << "Оценка: " << score << std::endl;
         std::cout << "Дата: " << date << std::endl;
     }
+
+    static Grade inputFromConsole() {
+        std::string subject;
+        double score;
+        std::string date;
+
+        std::cout << "Введите предмет: ";
+        std::cin >> subject;
+        std::cout << "Введите оценку: ";
+        std::cin >> score;
+        std::cout << "Введите дату: ";
+        std::cin >> date;
+
+        return Grade(subject, score, date);
+    }
 };
 
 class Student {
@@ -60,6 +75,33 @@ public:
             std::cout << std::endl;
         }
     }
+
+    static Student inputFromConsole() {
+        std::string first, last, dob, id, mail;
+        std::vector<Grade> grades;
+
+        std::cout << "Введите имя: ";
+        std::cin >> first;
+        std::cout << "Введите фамилию: ";
+        std::cin >> last;
+        std::cout << "Введите дату рождения: ";
+        std::cin >> dob;
+        std::cout << "Введите номер студенческого билета: ";
+        std::cin >> id;
+        std::cout << "Введите email: ";
+        std::cin >> mail;
+
+        char addGrade;
+        do {
+            Grade grade = Grade::inputFromConsole();
+            grades.push_back(grade);
+
+            std::cout << "Добавить еще одну оценку? (y/n): ";
+            std::cin >> addGrade;
+        } while (addGrade == 'y' || addGrade == 'Y');
+
+        return Student(first, last, dob, id, mail, grades);
+    }
 };
 
 class Project {
@@ -93,6 +135,31 @@ public:
             std::cout << "Имя: " << student.firstName << " " << student.lastName << std::endl;
         }
     }
+
+    static Project inputFromConsole() {
+        std::string name, desc, start, end;
+        std::vector<Student> members;
+
+        std::cout << "Введите название проекта: ";
+        std::cin >> name;
+        std::cout << "Введите описание проекта: ";
+        std::cin >> desc;
+        std::cout << "Введите дату начала: ";
+        std::cin >> start;
+        std::cout << "Введите дату окончания: ";
+        std::cin >> end;
+
+        char addMember;
+        do {
+            Student student = Student::inputFromConsole();
+            members.push_back(student);
+
+            std::cout << "Добавить еще одного участника? (y/n): ";
+            std::cin >> addMember;
+        } while (addMember == 'y' || addMember == 'Y');
+
+        return Project(name, desc, start, end, members);
+    }
 };
 
 class Event {
@@ -122,6 +189,29 @@ public:
         for (const Student& student : eventMembers) {
             std::cout << "Имя: " << student.firstName << " " << student.lastName << std::endl;
         }
+    }
+
+    static Event inputFromConsole() {
+        std::string name, date, location;
+        std::vector<Student> members;
+
+        std::cout << "Введите название мероприятия: ";
+        std::cin >> name;
+        std::cout << "Введите дату мероприятия: ";
+        std::cin >> date;
+        std::cout << "Введите место проведения мероприятия: ";
+        std::cin >> location;
+
+        char addParticipant;
+        do {
+            Student student = Student::inputFromConsole();
+            members.push_back(student);
+
+            std::cout << "Добавить еще одного участника мероприятия? (y/n): ";
+            std::cin >> addParticipant;
+        } while (addParticipant == 'y' || addParticipant == 'Y');
+
+        return Event(name, date, location, members);
     }
 };
 
@@ -156,10 +246,35 @@ public:
             std::cout << "Название: " << event.eventName << std::endl;
         }
     }
+
+    static Course inputFromConsole() {
+        std::string name, start, end, instructor;
+        std::vector<Event> events;
+
+        std::cout << "Введите название курса: ";
+        std::cin >> name;
+        std::cout << "Введите дату начала курса: ";
+        std::cin >> start;
+        std::cout << "Введите дату окончания курса: ";
+        std::cin >> end;
+        std::cout << "Введите имя предподавателя: ";
+        std::cin >> instructor;
+
+        char addEvent;
+        do {
+            Event event = Event::inputFromConsole();
+            events.push_back(event);
+
+            std::cout << "Добавить еще одно мероприятие курса? (y/n): ";
+            std::cin >> addEvent;
+        } while (addEvent == 'y' || addEvent == 'Y');
+
+        return Course(name, start, end, instructor, events);
+    }
 };
 
 
-int main1() {
+int main() {
     Grade few("Математика", 5.0, "20.09.2023");
 
     std::vector<Grade> studentGrades = {
@@ -211,6 +326,9 @@ int main1() {
     std::cout << "Вызов printEvent\n" << std::endl;
     event.print();
     std::cout << std::endl;
+
+    Grade grade123123 = grade123123.inputFromConsole();
+    grade123123.print();
 
     return 0;
 };
