@@ -293,7 +293,7 @@ public:
 };
 
 
-int main() {
+int main1() {
     Grade few("Математика", 5.0, "20.09.2023");
 
     std::vector<Grade> studentGrades = {
