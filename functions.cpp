@@ -316,7 +316,7 @@ Project inputProjectFromConsole() {
     return project;
 }
 
-int main1() {
+int main() {
     // Создаем студента и добавляем ему оценки
     std::vector<Grade> studentGrades = {
             {"Математика", 5.0, "20.09.2023"},
@@ -429,8 +429,15 @@ int main1() {
     std::cout << "Средний балл динамического студента: " << gpa << std::endl;
     std::cout << std::endl;
 
+    Project i_am_getting_100 = inputProjectFromConsole();
+    std::cout << "Введите данные о проекте:" << std::endl;
+    printProject(i_am_getting_100);
+    std::cout << std::endl;
+
     Event i_got_100_for_my_lab = inputEventFromConsole();
-    std::cout << "Данные о мероприятии:" << std::endl;
+    std::cout << "Введите данные о мероприятии:" << std::endl;
     printEvent(i_got_100_for_my_lab);
+    std::cout << std::endl;
+
 
 }
