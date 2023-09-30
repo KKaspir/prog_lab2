@@ -3,11 +3,12 @@
 #include <numeric>
 
 class Grade {
-public:
+private:
     std::string subject;
     double score;
     std::string date;
 
+public:
     Grade(const std::string& subj, double scr, const std::string& dt)
             : subject(subj), score(scr), date(dt) {}
 
@@ -31,17 +32,21 @@ public:
 
         return Grade(subject, score, date);
     }
+
+    double getScore() const {
+        return score;
+    }
 };
 
 class Student {
-public:
+private:
     std::string firstName;
     std::string lastName;
     std::string dateOfBirth;
     std::string studentID;
     std::string email;
     std::vector<Grade> grades;
-
+public:
     Student(
             const std::string& first,
             const std::string& last,
@@ -57,7 +62,7 @@ public:
         }
         double totalScore = 0.0;
         for (const Grade& grade : grades) {
-            totalScore += grade.score;
+            totalScore += grade.getScore();
         }
         return totalScore / grades.size();
     }
@@ -98,20 +103,28 @@ public:
 
             std::cout << "Добавить еще одну оценку? (y/n): ";
             std::cin >> addGrade;
-        } while (addGrade == 'y' || addGrade == 'Y');
+        } while (addGrade == 'y' || addGrade == 'n');
 
         return Student(first, last, dob, id, mail, grades);
+    }
+    std::string getFirstName() const {
+        return firstName;
+    }
+
+    std::string getLastName() const {
+        return lastName;
     }
 };
 
 class Project {
-public:
+private:
     std::string projectName;
     std::string description;
     std::string startDate;
     std::string endDate;
     std::vector<Student> teamMembers;
 
+public:
     Project(
             const std::string& name,
             const std::string& desc,
@@ -132,7 +145,7 @@ public:
 
         std::cout << "\nУчастники:" << std::endl;
         for (const Student& student : teamMembers) {
-            std::cout << "Имя: " << student.firstName << " " << student.lastName << std::endl;
+            std::cout << "Имя: " << student.getFirstName() << " " << student.getLastName() << std::endl;
         }
     }
 
@@ -163,12 +176,13 @@ public:
 };
 
 class Event {
-public:
+private:
     std::string eventName;
     std::string date;
     std::string location;
     std::vector<Student> eventMembers;
 
+public:
     Event(
             const std::string& name,
             const std::string& dt,
@@ -187,7 +201,7 @@ public:
 
         std::cout << "\nУчастники:" << std::endl;
         for (const Student& student : eventMembers) {
-            std::cout << "Имя: " << student.firstName << " " << student.lastName << std::endl;
+            std::cout << "Имя: " << student.getFirstName() << " " << student.getLastName() << std::endl;
         }
     }
 
@@ -213,16 +227,21 @@ public:
 
         return Event(name, date, location, members);
     }
+
+    std::string getEvenName() const {
+        return eventName;
+    }
 };
 
 class Course {
-public:
+private:
     std::string courseName;
     std::string startDate;
     std::string endDate;
     std::string instructor;
     std::vector<Event> events;
 
+public:
     Course(
             const std::string& name,
             const std::string& start,
@@ -243,7 +262,7 @@ public:
 
         std::cout << "Мероприятия: " << std::endl;
         for (const Event& event : events) {
-            std::cout << "Название: " << event.eventName << std::endl;
+            std::cout << "Название: " << event.getEvenName() << std::endl;
         }
     }
 
@@ -327,8 +346,13 @@ int main() {
     event.print();
     std::cout << std::endl;
 
-    Grade grade123123 = grade123123.inputFromConsole();
-    grade123123.print();
+//    std::cout << "Вызов grade inputFromConsole\n" << std::endl;
+//    Grade grade = grade.inputFromConsole();
+//    grade.print();
+
+    std::cout << "Вызов student inputFromConsole\n" << std::endl;
+    Student studente = studente.inputFromConsole();
+    studente.print();
 
     return 0;
 };

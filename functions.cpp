@@ -255,8 +255,6 @@ Course inputCourseFromConsole() {
     return course;
 }
 
-
-
 // ПРОЕКТ
 // Вывод в консоль
 void printProject(Project project) {
@@ -317,10 +315,6 @@ Project inputProjectFromConsole() {
 
     return project;
 }
-
-
-
-
 
 int main1() {
     // Создаем студента и добавляем ему оценки
