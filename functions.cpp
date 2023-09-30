@@ -430,12 +430,12 @@ int main() {
     std::cout << std::endl;
 
     Project i_am_getting_100 = inputProjectFromConsole();
-    std::cout << "Введите данные о проекте:" << std::endl;
+    std::cout << "Введены данные о проекте:" << std::endl;
     printProject(i_am_getting_100);
     std::cout << std::endl;
 
     Event i_got_100_for_my_lab = inputEventFromConsole();
-    std::cout << "Введите данные о мероприятии:" << std::endl;
+    std::cout << "Введены данные о мероприятии:" << std::endl;
     printEvent(i_got_100_for_my_lab);
     std::cout << std::endl;
 
