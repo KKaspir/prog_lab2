@@ -103,7 +103,7 @@ public:
 
             std::cout << "Добавить еще одну оценку? (y/n): ";
             std::cin >> addGrade;
-        } while (addGrade == 'y' || addGrade == 'n');
+        } while (addGrade == 'y' || addGrade == 'Y');
 
         return Student(first, last, dob, id, mail, grades);
     }
@@ -346,9 +346,9 @@ int main() {
     event.print();
     std::cout << std::endl;
 
-//    std::cout << "Вызов grade inputFromConsole\n" << std::endl;
-//    Grade grade = grade.inputFromConsole();
-//    grade.print();
+    std::cout << "Вызов grade inputFromConsole\n" << std::endl;
+    Grade grade = grade.inputFromConsole();
+    grade.print();
 
     std::cout << "Вызов student inputFromConsole\n" << std::endl;
     Student studente = studente.inputFromConsole();
